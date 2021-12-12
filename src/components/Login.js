@@ -17,7 +17,7 @@ const login = () => {
     const pwd = bcrypt.hashSync(password, salt);
     password = document.getElementById("pass").value;
     username = document.getElementById("user").value;
-    axios.post('http://localhost:5000/api/cars/loginUser', {
+    axios.post('https://final-project-backen.herokuapp.com/api/cars/loginUser', {
       username: username,
       password: password,
     }).then((res) => {

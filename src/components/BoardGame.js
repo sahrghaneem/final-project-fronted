@@ -193,7 +193,7 @@ const Cars = () => {
                             coins = parseInt(localStorage.getItem('coins'))
                             score.innerHTML = "Score :" + scoreGame + "<br>" + "Coins :" + coins + "🪙"+ "<br>" + "Speed :" + speedCar;
                             saveCoins()
-                            axios.post('http://localhost:5000/api/cars/upGradeCar', {
+                            axios.post('https://final-project-backen.herokuapp.com/api/cars/upGradeCar', {
                                 upCar: this.dataset.img,
                                 username: localStorage.getItem('username')
                           
@@ -287,7 +287,7 @@ const Cars = () => {
         navigate(path)
     }
     const saveCoins = () => {
-        axios.post('http://localhost:5000/api/cars/savecoin', {
+        axios.post('https://final-project-backen.herokuapp.com/api/cars/savecoin', {
             coins: parseInt(localStorage.getItem('coins')),
             username: localStorage.getItem('username')
         })

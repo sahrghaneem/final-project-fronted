@@ -23,7 +23,7 @@ password = document.getElementById("pass").value;
 username = document.getElementById("user").value;
 if(username.length>=4 )
 if(password.length >5  && password.length<=10 ){
-    axios.post('http://localhost:5000/api/cars/registerUser', {
+    axios.post('https://final-project-backen.herokuapp.com/api/cars/registerUser', {
       username: username,
       password: password,
     }).then((res) => {
