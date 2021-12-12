@@ -196,8 +196,7 @@ const Cars = () => {
                             axios.post('https://final-project-backen.herokuapp.com/api/cars/upGradeCar', {
                                 upCar: this.dataset.img,
                                 username: localStorage.getItem('username')
-                          
-                            
+                        
                     })
                     alert("Congrats you bought a new car")
                 }
