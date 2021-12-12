@@ -52,6 +52,7 @@ if(password.length >5  && password.length<=10 ){
     return (
       <div style={{ marginTop: '200px' }}>
         <div>
+          <h1>Traffic Racing Game</h1>
           <h2>Register</h2>
         </div>
 

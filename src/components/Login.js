@@ -42,12 +42,13 @@ const login = () => {
     return (
       <div style={{ marginTop: '200px' }}>
         <div>
-          <h3>Wellcome To Our Car Game</h3>
-          <h2>Login</h2>
+        <h1>Traffic Racing Game</h1>
+          <p></p>
+        <h2>Login</h2>
         </div>
-
         <div>
           <input
+          className='input1'
             id="user"
             type="text"
             name="username"
@@ -57,6 +58,7 @@ const login = () => {
           />
           <br /><br />
           <input
+            className='input2'
             id="pass"
             type="password"
             name="password"
@@ -64,7 +66,7 @@ const login = () => {
             placeholder="Password"
             required
           />
-          <br /><br />
+          <br /><br /> <br /><br /> <br /><br /> <br /><br />
           <Button
             className="button_style"
             variant="contained"
