@@ -16,17 +16,20 @@ const Cars = () => {
     var scoreGame = 0;
     var points = 1;
     var coins = 0;
-    var marketVisible = 0;
-    var marketFirstTime = 1;
+    var upGradeVisible = 0;
+    var upGradeFirstTime = 1;
     var MyCar = document.getElementById("TheCar");
     var AppGame = document.getElementById("gameApp");
     var container = document.getElementById("Container");
     var playAgain = document.querySelector(".playAgain");
+    var upGradecar=document.querySelector(".upGradecar")
     var app = document.querySelector(".app");
     var lines = null;
     var newCar = null;
-    var newMarket = null;
+    var garage = null;
+    var gameOverMessage = document.querySelector(".gameOverPara");
     var score = document.querySelector(".score");
+    var logO=document.querySelector(".logOut")
     const navigate = useNavigate();
 
     const Start = () => {
@@ -34,9 +37,13 @@ const Cars = () => {
         playAgain = document.querySelector(".playAgain")
         app = document.querySelector(".App")
         score = document.querySelector(".score");
-
+        logO=document.querySelector(".logOut")
+        upGradecar=document.querySelector(".upGradecar")
         app.classList.remove('hide');
         playAgain.classList.add('hide');
+        logO.classList.add('hide');
+        upGradecar.classList.add('hide')
+
         score.classList.remove('hide');
         scoreGame = 1;
         points = 1;
@@ -46,14 +53,14 @@ const Cars = () => {
         AppGame = document.getElementById("gameApp");
         score = document.getElementById("score")
 
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < 9; i++) {// creating lines
             let roadLine = document.createElement("div");
             roadLine.setAttribute("class", "lines");
             roadLine.style.top = (i * 120) + "px";
             AppGame.appendChild(roadLine);
         }
 
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i++) {// creating enemies
             newCar = document.createElement("div");
             newCar.setAttribute("class", "enemy");
             let randomImg = Math.floor(Math.random() * 3);
@@ -67,6 +74,7 @@ const Cars = () => {
         }
         MyCar = document.createElement("div");
         MyCar.setAttribute("class", "square");
+        MyCar.classList.add(localStorage.getItem('upCar'));
         MyCar.style.left = "210px";
         MyCar.style.top = "608px";
         AppGame.appendChild(MyCar);
@@ -80,14 +88,17 @@ const Cars = () => {
                 ele.style.top = -608 + "px"
                 let enemyx = Math.floor(Math.random() * 475)
                 ele.style.left = enemyx + "px"
+                ele.classList.remove("img0")
                 ele.classList.remove("img1")
                 ele.classList.remove("img2")
                 ele.classList.remove("img3")
-                let randomImg = Math.floor(Math.random() * 3);
 
-                if (randomImg === 0) { ele.classList.add("img1") }
-                if (randomImg === 1) { ele.classList.add("img2") }
-                if (randomImg === 2) { ele.classList.add("img3") }
+                let randomImg = Math.floor(Math.random() * 4);
+                if (randomImg === 0) { ele.classList.add("img0") }
+                if (randomImg === 1) { ele.classList.add("img1") }
+                if (randomImg === 2) { ele.classList.add("img2") }
+                if (randomImg === 3) { ele.classList.add("img3") }
+
             }
             else
                 ele.style.top = parseInt(ele.style.top) + speedCar + "px";
@@ -119,91 +130,122 @@ const Cars = () => {
             window.requestAnimationFrame(moveRight);
     }
 
-    const handelRect = () => {
+    const handleRect = () => {
         let enemies = document.querySelectorAll('.enemy');
         let MyCarRect = MyCar.getBoundingClientRect();
+        let CollideFlag = 0;
+         gameOverMessage = document.querySelector(".gameOverPara");
         enemies.forEach(ele => {
             let enemyCarRect = ele.getBoundingClientRect();
             if (!((MyCarRect.bottom < enemyCarRect.top) || (MyCarRect.top > enemyCarRect.bottom) || (MyCarRect.right < enemyCarRect.left) || (MyCarRect.left > enemyCarRect.right))) {
                 localStorage.setItem('coins', coins);
-                //now we hava the coins at local we need to add it to th db
                 saveCoins();
-                AppGame.innerHTML = "Game over Your score is :-" + MyCar.scoreGame;
+                gameOverMessage.classList.remove("hide")
+                gameOverMessage.innerHTML = "Game over Your score is :" + scoreGame;
+                window.setTimeout(()=>{gameOverMessage.classList.add("hide")},2000)
+                window.setTimeout(()=>{AppGame.innerHTML = ""},2000)
                 GameStart = false;
             }
         })
+        if(CollideFlag){
+           
+        }
     }
 
-    const handdelScoreGame = () => {
+    const handleScoreGame = () => {
         var score = document.querySelector(".score");
         scoreGame += points;
         if (scoreGame % 500 === 0) {
-            console.log("we are increasing the speed")
             points++;
             speedCar += 2;
         }
         coins = parseInt(localStorage.getItem('coins')) + Math.round(scoreGame / 10);
-        score.innerHTML = "<br>Score :" + scoreGame + "<br>" + "Coins :" + coins + "<br>" + "Speed :" + speedCar;
+        score.innerHTML = "Score :" + scoreGame + "<br>"+ "🪙" + "Coins :" + coins + "<br>"  + "Speed :" + speedCar;
     }
-    const handleMarket = () => {
+    const handleUpGradeCar = () => {
         playAgain = document.querySelector(".playAgain")
         app = document.querySelector(".App")
         score = document.querySelector(".score");
         container = document.getElementById("Container");
 
-        if (marketVisible === 0) {
+        if (upGradeVisible === 0) {
 
-            if (marketFirstTime) {
-                newMarket = document.createElement("div")
-                let arr = [100, 200, 300]
-                for (let i = 0; i <= 2; i++) {
+            if (upGradeFirstTime) { 
+                garage = document.createElement("div")
+                let arr = [500, 1000, 1500]
+                for (let i = 4; i < 7; i++) {
                     newCar = document.createElement("div");
                     newCar.setAttribute("class", "item");
                     let imgname = "img" + (i + 1);
                     newCar.classList.add(imgname)
-                    newCar.onclick = function () {
-                        if (coins > 100) {
-                            console.log('ok');
-
-                        } else {
-                            console.log('no');
-                        }
-                    };
                     newCar.style.top = "200px";
                     newCar.style.left = 10 * i + "%"
-                    newCar.innerHTML += "</br></br></br></br></br></br> " + arr[i];
-                    newMarket.appendChild(newCar);
+                    newCar.innerHTML += "</br></br></br></br></br></br> " + arr[i-4] + "🪙";
+                    newCar.dataset.img = imgname
+                    newCar.id = arr[i-4]
+                    garage.appendChild(newCar);
+                    newCar.onclick = function () {
+
+                        if (coins >= this.id) {
+                            if(window.confirm("you sure you want to buy this car ?")){
+                            localStorage.setItem('upCar', this.dataset.img);
+                            localStorage.setItem('coins', parseInt(localStorage.getItem('coins')) - this.id);
+                            coins = parseInt(localStorage.getItem('coins'))
+                            score.innerHTML = "Score :" + scoreGame + "<br>" + "Coins :" + coins + "🪙"+ "<br>" + "Speed :" + speedCar;
+                            saveCoins()
+                            axios.post('http://localhost:5000/api/cars/upGradeCar', {
+                                upCar: this.dataset.img,
+                                username: localStorage.getItem('username')
+                          
+                            
+                    })
+                    alert("Congrats you bought a new car")
                 }
-                AppGame.appendChild(newMarket);
-                marketFirstTime = 0;
+                        } else {
+                            alert("you don't have enough coins")
+                        }
+                    };
+                }
+                console.log(garage)
+                container.appendChild(garage);
+                upGradeFirstTime = 0;
 
             }
-            marketVisible = 1;
-            newMarket.classList.remove('hide');
-            container.appendChild(newMarket);
+            upGradeVisible = 1;
+            garage.classList.remove('hide');
+            container.appendChild(garage);
             app.classList.add('hide');
             score.classList.add('hide');
             playAgain.classList.add('hide');
+            logO.classList.add('hide');
+            upGradecar=document.querySelector(".upGradecar")
+            upGradecar.innerHTML="Close Market";
+
         }
         else {
-            newMarket.classList.add('hide');
-            marketVisible = 0;
-            app.classList.remove('hide');
+            garage.classList.add('hide');
+            upGradeVisible = 0;
+            app.classList.add('hide');
             score.classList.remove('hide');
             playAgain.classList.remove('hide');
+            logO.classList.remove('hide');
+            upGradecar.innerHTML="Open Market";
         }
     }
     const PlayGame = () => {
         moveLines();
         MoveEnemyCar();
         handleMoving();
-        handdelScoreGame();
-        handelRect();
+        handleScoreGame();
+        handleRect();
         if (GameStart)
-            window.setTimeout(window.requestAnimationFrame(PlayGame), 3000);
+            window.setTimeout(window.requestAnimationFrame(PlayGame), 1000);
         else {
-            app.classList.add('hide');
-            playAgain.classList.remove('hide');
+
+            window.setTimeout(()=>{app.classList.add('hide')},2000);
+            window.setTimeout(()=>{playAgain.classList.remove('hide')},2000);
+            window.setTimeout(()=>{logO.classList.remove('hide')},2000);
+            window.setTimeout(()=>{upGradecar.classList.remove('hide')},2000)
         }
     }
 
@@ -245,22 +287,25 @@ const Cars = () => {
         navigate(path)
     }
     const saveCoins = () => {
-        axios.post('https://final-project-backen.herokuapp.com/api/cars/savecoin', {
+        axios.post('http://localhost:5000/api/cars/savecoin', {
             coins: parseInt(localStorage.getItem('coins')),
             username: localStorage.getItem('username')
         })
     }
-    
+
     return (
+        <div>
         <div className="Container" id="Container">
             <div className="score">score</div>
             <button className="logOut" onClick={logOut}> logOut </button>
             <button className="playAgain" id="playAgain" onClick={handlePlayAgain}> Start Play </button>
-            <button className='market' onClick={handleMarket}>Market</button>
-
+            <button className='upGradecar' onClick={handleUpGradeCar}>Open Market</button>
+            
             <div className="App hide" id="gameApp" >
                 <div id="enemy"></div>
             </div>
+        </div>
+        <div className="gameOverPara hide"></div>
         </div>
 
     )

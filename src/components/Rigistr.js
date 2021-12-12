@@ -17,11 +17,13 @@ const Register = () => {
  const onRigistPass = (e) =>({
    [e.target.name]: e.target.value ,
   });
-
+  // \-=\[\]{};:"\\|,.<>\/?]+/
  const register = () => {
 password = document.getElementById("pass").value;
 username = document.getElementById("user").value;
-    axios.post('https://final-project-backen.herokuapp.com/api/cars/registerUser', {
+if(username.length>=4 )
+if(password.length >5  && password.length<=10 ){
+    axios.post('http://localhost:5000/api/cars/registerUser', {
       username: username,
       password: password,
     }).then((res) => {
@@ -39,7 +41,14 @@ username = document.getElementById("user").value;
       });
     });
   }
+  else{
+    alert ('Enter a Password between 6 to 10 characters')
+  }
+  else{
+    alert ('Enter a username 4 characters or more !')
 
+  }
+ }
     return (
       <div style={{ marginTop: '200px' }}>
         <div>
@@ -66,7 +75,7 @@ username = document.getElementById("user").value;
           <Button
             className="button_style"
             variant="contained"
-            color="#3d7707"
+            color="primary"
             size="small"
             onClick={register}
           >

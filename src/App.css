@@ -19,16 +19,22 @@ body {
   background: var(--light-color);
   background-repeat: no-repeat;
   background-size: 100vw 100vh;
-  background-color:#0ea50e79 ;
+  background: rgb(34,193,195);
+  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+}
+.img0{
+  background-image: url('./images/imgg.png');
+  background-repeat: no-repeat;
+  background-size: 75px 100px;
 }
 .img1{
-  background-image:url('./images/car3-removebg-preview.png') ;
+  background-image:url('./images/images-removebg-preview.png') ;
   background-repeat: no-repeat;
   background-size: 75px 100px;
 }
 
 .img2{
-  background-image:url('./images/imgg.png') ;
+  background-image:url('./images/22-grease-retro-car-top-removebg-preview.png') ;
   background-repeat: no-repeat;
   background-size: 75px 100px;
 }
@@ -39,16 +45,38 @@ body {
   background-size: 75px 100px;
 }
 
+.img4{
+  background-image:url('./images/car3-removebg-preview.png') ;
+  background-repeat: no-repeat;
+  background-size: 75px 100px;
+}
+.img5{
+  background-image:url('./images/car2-removebg-preview\ \(1\).png') ;
+  background-repeat: no-repeat;
+  background-size: 75px 100px;
+}
+.img6{
+  background-image:url('./images/8974244-2003-delahaye-removebg-preview.png') ;
+  background-repeat: no-repeat;
+  background-size: 75px 100px;
+}
+.img7{
+  background-image:url('./images/6a0af98d7c35c364fbe7b46d10ce0762-removebg-preview.png') ;
+  background-repeat: no-repeat;
+  background-size: 75px 100px;
+}
+
 .App{
-  margin-top: 0;
+  margin-top: 40px;
   margin-left: 34%;
   max-width: 550px;
   height: 712px;
   text-align: center;
   position: relative;
-  background-color: rgba(34, 138, 14, 0.582);
+  background-color: rgba(182, 201, 15, 0.582);
   border-left :dashed 4px white;
   border-right : dashed 4px white;
+  overflow: hidden;
   z-index: 1;
 }
 .item{
@@ -59,6 +87,18 @@ body {
   z-index: 3;
   position: absolute;
 
+}
+.gameOverPara{
+  left:20px;
+  top:-500px;
+  width:500px;
+  height: 35px;
+  background-color:black ;
+  font-size: 25px;
+  color:white;
+  margin-left:33%;
+  position: relative;
+  z-index: 3;
 }
 .enemy{
   left:0;
@@ -96,26 +136,25 @@ body {
   height: 100px;
   position:relative;
   z-index: 2;
-  background-image: url("./images/car2-removebg-preview\ \(1\).png");
-  background-repeat: no-repeat;
-  background-size: 75px 100px;
 }
 
 .score {
   position: absolute;
-  top:15px;
-  left: 40px;
+  top:42%;
+  left: 70px;
   font-size: 24px;
-  color:rgb(247, 241, 241);
+  color:rgba(16, 104, 145, 0.5);
+  background-color: beige;
   width: 200px;
-  height: 70px;
+  height: 212px;
   text-align: center;
   line-height: 70px;
+  border-radius: 4%;
 }
-.playAgain .logOut .market{
+.playAgain{
   position: absolute;
   top:15px;
-  left: 40px;
+  left: 20px;
   width: 200px;
   height: 70x;
   font-size: 24px;
@@ -125,13 +164,35 @@ body {
   margin-top: 20%;
   margin-left: 42%;
   z-index: 3;
+  background-color: green;
 }
-
-/* .logOut{
-  top:15px;
-}
-.market{
-  top:15px;
+.upGradecar{
+  position: absolute;
+  top:90px;
+  left: 20px;
+  width: 200px;
+  height: 70x;
+  font-size: 24px;
+  border-radius: 10%;
   text-align: center;
-
-} */
+  line-height: 70px;
+  margin-top: 20%;
+  margin-left: 42%;
+  z-index: 3;
+  background-color: yellow;
+}
+.logOut{
+  position: absolute;
+  top:165px;
+  left: 20px;
+  width: 200px;
+  height: 70x;
+  font-size: 24px;
+  border-radius: 10%;
+  text-align: center;
+  line-height: 70px;
+  margin-top: 20%;
+  margin-left: 42%;
+  z-index: 3;
+  background-color: red;
+}

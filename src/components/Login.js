@@ -17,13 +17,15 @@ const login = () => {
     const pwd = bcrypt.hashSync(password, salt);
     password = document.getElementById("pass").value;
     username = document.getElementById("user").value;
-    axios.post('https://final-project-backen.herokuapp.com/api/cars/loginUser', {
+    axios.post('http://localhost:5000/api/cars/loginUser', {
       username: username,
       password: password,
     }).then((res) => {
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('username', res.data.username);
       localStorage.setItem('coins', res.data.coins);
+      localStorage.setItem("upCar",res.data.upCar)
+
       navigate('/CarGame');
 
     }).catch((err) => {
@@ -40,6 +42,7 @@ const login = () => {
     return (
       <div style={{ marginTop: '200px' }}>
         <div>
+          <h3>Wellcome To Our Car Game</h3>
           <h2>Login</h2>
         </div>
 
@@ -65,7 +68,7 @@ const login = () => {
           <Button
             className="button_style"
             variant="contained"
-            color="#3d7707"
+            color="primary"
             size="small"
             onClick={login}
           >
